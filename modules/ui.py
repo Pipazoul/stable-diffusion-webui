@@ -381,7 +381,7 @@ def setup_progressbar(progressbar, preview):
     )
 
 
-def create_ui(txt2img, img2img, run_extras, run_pnginfo):
+def create_ui(txt2img, img2img,webcam2img, run_extras, run_pnginfo):
     with gr.Blocks(analytics_enabled=False) as txt2img_interface:
         txt2img_prompt, roll, txt2img_prompt_style, txt2img_negative_prompt, txt2img_prompt_style2, submit, _, txt2img_prompt_style_apply, txt2img_save_style = create_toprow(is_img2img=False)
         dummy_component = gr.Label(visible=False)

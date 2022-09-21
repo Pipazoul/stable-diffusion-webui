@@ -20,6 +20,7 @@ import modules.extras
 import modules.lowvram
 import modules.txt2img
 import modules.img2img
+import modules.webcam2img
 import modules.swinir as swinir
 import modules.sd_models
 
@@ -82,6 +83,7 @@ def webui():
     demo = modules.ui.create_ui(
         txt2img=wrap_gradio_gpu_call(modules.txt2img.txt2img),
         img2img=wrap_gradio_gpu_call(modules.img2img.img2img),
+        webcam2img=wrap_gradio_gpu_call(modules.webcam2img.webcam2img),
         run_extras=wrap_gradio_gpu_call(modules.extras.run_extras),
         run_pnginfo=modules.extras.run_pnginfo
     )
