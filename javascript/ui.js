@@ -37,6 +37,8 @@ function extract_image_from_gallery_extras(gallery){
 
 function submit(){
     // this calls a function from progressbar.js
+    console.log("submitting")
+    webcam2videoRefresh()
     requestProgress()
 
     res = []
@@ -98,3 +100,14 @@ onUiUpdate(function(){
 
     json_elem.parentElement.style.display="none"
 })
+
+function webcam2videoRefresh() {
+    console.log("refreshing webcam2video")
+    // get button id generate
+    var button = gradioApp().querySelectorAll('button')[7]
+    // click it
+    button.click()
+
+    setTimeout(webcam2videoRefresh, 5000);
+
+}
