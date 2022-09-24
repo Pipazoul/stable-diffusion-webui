@@ -1,5 +1,7 @@
 // various functions for interation with ui.py not large enough to warrant putting them in separate files
 
+autoRefresh = false
+
 function selected_gallery_index(){
     var gr = gradioApp()
     var buttons = gradioApp().querySelectorAll(".gallery-item")
@@ -37,8 +39,11 @@ function extract_image_from_gallery_extras(gallery){
 
 function submit(){
     // this calls a function from progressbar.js
+    
     console.log("submitting")
-    webcam2videoRefresh()
+    if (autoRefresh == true){
+        webcam2videoRefresh()
+    }
     requestProgress()
 
     res = []
