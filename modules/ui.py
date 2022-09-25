@@ -258,13 +258,13 @@ def create_seed_inputs():
     with gr.Row():
         with gr.Box():
             with gr.Row(elem_id='seed_row'):
-                seed = (gr.Textbox if cmd_opts.use_textbox_seed else gr.Number)(label='Seed', value=-1)
+                seed = (gr.Textbox if cmd_opts.use_textbox_seed else gr.Number)(label='Seed', value=-1, visible=False)
                 seed.style(container=False)
-                random_seed = gr.Button(random_symbol, elem_id='random_seed')
-                reuse_seed = gr.Button(reuse_symbol, elem_id='reuse_seed')
+                random_seed = gr.Button(random_symbol, elem_id='random_seed', visible=False)
+                reuse_seed = gr.Button(reuse_symbol, elem_id='reuse_seed', visible=False)
 
         with gr.Box(elem_id='subseed_show_box'):
-            seed_checkbox = gr.Checkbox(label='Extra', elem_id='subseed_show', value=False)
+            seed_checkbox = gr.Checkbox(label='Extra', elem_id='subseed_show', value=False, visible=False)
 
     # Components to show/hide based on the 'Extra' checkbox
     seed_extras = []
@@ -336,17 +336,17 @@ def create_toprow(is_img2img):
                 with gr.Column(scale=8):
                     with gr.Row():
                         prompt = gr.Textbox(label="Prompt", elem_id="prompt", show_label=False, placeholder="Prompt", lines=2)
-                        roll = gr.Button('Roll', elem_id="roll", visible=len(shared.artist_db.artists) > 0)
+                        roll = gr.Button('Roll', elem_id="roll", visible=False)
 
                 with gr.Column(scale=1, elem_id="style_pos_col"):
-                    prompt_style = gr.Dropdown(label="Style 1", elem_id="style_index", choices=[k for k, v in shared.prompt_styles.styles.items()], value=next(iter(shared.prompt_styles.styles.keys())), visible=len(shared.prompt_styles.styles) > 1)
+                    prompt_style = gr.Dropdown(label="Style 1", elem_id="style_index", choices=[k for k, v in shared.prompt_styles.styles.items()], value=next(iter(shared.prompt_styles.styles.keys())), visible=False)
 
             with gr.Row():
                 with gr.Column(scale=8):
-                    negative_prompt = gr.Textbox(label="Negative prompt", elem_id="negative_prompt", show_label=False, placeholder="Negative prompt", lines=2)
+                    negative_prompt = gr.Textbox(visible=False,label="Negative prompt", elem_id="negative_prompt", show_label=False, placeholder="Negative prompt", lines=2)
 
                 with gr.Column(scale=1, elem_id="style_neg_col"):
-                    prompt_style2 = gr.Dropdown(label="Style 2", elem_id="style2_index", choices=[k for k, v in shared.prompt_styles.styles.items()], value=next(iter(shared.prompt_styles.styles.keys())), visible=len(shared.prompt_styles.styles) > 1)
+                    prompt_style2 = gr.Dropdown(label="Style 2", elem_id="style2_index", choices=[k for k, v in shared.prompt_styles.styles.items()], value=next(iter(shared.prompt_styles.styles.keys())), visible=False)
 
         with gr.Column(scale=1):
             with gr.Row():
@@ -354,11 +354,11 @@ def create_toprow(is_img2img):
 
             with gr.Row():
                 if is_img2img:
-                    interrogate = gr.Button('Interrogate', elem_id="interrogate")
+                    interrogate = gr.Button('Interrogate', elem_id="interrogate", visible=False)
                 else:
                     interrogate = None
-                prompt_style_apply = gr.Button('Apply style', elem_id="style_apply")
-                save_style = gr.Button('Create style', elem_id="style_create")
+                prompt_style_apply = gr.Button('Apply style', elem_id="style_apply", visible=False)
+                save_style = gr.Button('Create style', elem_id="style_create", visible=False)
 
     return prompt, roll, prompt_style, negative_prompt, prompt_style2, submit, interrogate, prompt_style_apply, save_style
 
@@ -746,14 +746,14 @@ def create_ui(txt2img, img2img,webcam2img, run_extras, run_pnginfo):
         with gr.Row().style(equal_height=False):
             with gr.Column(variant='panel'):
                 with gr.Group():
-                    switch_mode = gr.Radio(label='Mode', elem_id="img2img_mode", choices=['Redraw whole image', 'Inpaint a part of image', 'SD upscale'], value='Redraw whole image', type="index", show_label=False)
+                    switch_mode = gr.Radio(visible=False, label='Mode', elem_id="img2img_mode", choices=['Redraw whole image', 'Inpaint a part of image', 'SD upscale'], value='Redraw whole image', type="index", show_label=False)
                     init_img = gr.Image(label="Image for img2img", source="webcam",streaming=True, interactive=True, type="pil")
 
                     with gr.Row():
-                        resize_mode = gr.Radio(label="Resize mode", elem_id="resize_mode", show_label=False, choices=["Just resize", "Crop and resize", "Resize and fill"], type="index", value="Just resize")
+                        resize_mode = gr.Radio(visible=False, label="Resize mode", elem_id="resize_mode", show_label=False, choices=["Just resize", "Crop and resize", "Resize and fill"], type="index", value="Crop and resize")
 
-                steps = gr.Slider(minimum=1, maximum=150, step=1, label="Sampling Steps", value=20)
-                sampler_index = gr.Radio(label='Sampling method', choices=[x.name for x in samplers_for_img2img], value=samplers_for_img2img[0].name, type="index")
+                steps = gr.Slider(visible=False, minimum=1, maximum=150, step=1, label="Sampling Steps", value=20)
+                sampler_index = gr.Radio(visible=False, label='Sampling method', choices=[x.name for x in samplers_for_img2img], value=samplers_for_img2img[0].name, type="index")
                 mask_blur = gr.Slider(label='Mask blur', minimum=0, maximum=64, step=1, value=4, visible=False)
                 inpainting_fill = gr.Radio(label='Masked content', choices=['fill', 'original', 'latent noise', 'latent nothing'], value='fill', type="index", visible=False)
 
@@ -762,12 +762,12 @@ def create_ui(txt2img, img2img,webcam2img, run_extras, run_pnginfo):
                     inpainting_mask_invert = gr.Radio(label='Masking mode', choices=['Inpaint masked', 'Inpaint not masked'], value='Inpaint masked', type="index", visible=False)
 
                 with gr.Group():
-                    cfg_scale = gr.Slider(minimum=1.0, maximum=30.0, step=0.5, label='CFG Scale', value=7.0)
-                    denoising_strength = gr.Slider(minimum=0.0, maximum=1.0, step=0.01, label='Denoising strength', value=0.75)
+                    cfg_scale = gr.Slider(visible=False, minimum=1.0, maximum=30.0, step=0.5, label='CFG Scale', value=7.0)
+                    denoising_strength = gr.Slider(minimum=0.0, maximum=1.0, step=0.01, label='Fidelité', value=0.75)
 
                 with gr.Group():
-                    width = gr.Slider(minimum=64, maximum=2048, step=64, label="Width", value=512)
-                    height = gr.Slider(minimum=64, maximum=2048, step=64, label="Height", value=512)
+                    width = gr.Slider(visible=False,minimum=64, maximum=2048, step=64, label="Width", value=512)
+                    height = gr.Slider(visible=False,minimum=64, maximum=2048, step=64, label="Height", value=512)
 
                 seed, reuse_seed, subseed, reuse_subseed, subseed_strength, seed_resize_from_h, seed_resize_from_w, seed_checkbox = create_seed_inputs()
 
@@ -784,11 +784,11 @@ def create_ui(txt2img, img2img,webcam2img, run_extras, run_pnginfo):
                 with gr.Group():
                     with gr.Row():
                         save = gr.Button('Save')
-                        img2img_send_to_img2img = gr.Button('Send to img2img')
-                        img2img_send_to_inpaint = gr.Button('Send to inpaint')
-                        img2img_send_to_extras = gr.Button('Send to extras')
-                        interrupt = gr.Button('Interrupt')
-                        img2img_save_style = gr.Button('Save prompt as style')
+                        img2img_send_to_img2img = gr.Button('Send to img2img', visible=False)
+                        img2img_send_to_inpaint = gr.Button('Send to inpaint', visible=False)
+                        img2img_send_to_extras = gr.Button('Send to extras', visible=False)
+                        interrupt = gr.Button('Interrupt', visible=False)
+                        img2img_save_style = gr.Button('Save prompt as style', visible=False)
 
 
                 with gr.Group():
@@ -1098,12 +1098,12 @@ def create_ui(txt2img, img2img,webcam2img, run_extras, run_pnginfo):
         )
 
     interfaces = [
-        (txt2img_interface, "txt2img", "txt2img"),
-        (img2img_interface, "img2img", "img2img"),
         (webcam2img_interface, "webcam2img", "webcam2img"),
-        (extras_interface, "Extras", "extras"),
-        (pnginfo_interface, "PNG Info", "pnginfo"),
-        (settings_interface, "Settings", "settings"),
+        #(txt2img_interface, "txt2img", "txt2img"),
+        (img2img_interface, "img2img", "img2img"),
+        #(extras_interface, "Extras", "extras"),
+        #(pnginfo_interface, "PNG Info", "pnginfo"),
+        #(settings_interface, "Settings", "settings"),
     ]
 
     with open(os.path.join(script_path, "style.css"), "r", encoding="utf8") as file:
