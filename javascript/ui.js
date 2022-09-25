@@ -1,6 +1,7 @@
 // various functions for interation with ui.py not large enough to warrant putting them in separate files
 
 autoRefresh = false
+autoRefreshTime = 5000
 
 function selected_gallery_index(){
     var gr = gradioApp()
@@ -113,6 +114,6 @@ function webcam2videoRefresh() {
     // click it
     button.click()
 
-    setTimeout(webcam2videoRefresh, 5000);
+    setTimeout(webcam2videoRefresh, autoRefreshTime);
 
 }
