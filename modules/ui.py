@@ -1413,7 +1413,7 @@ Requested path was: {f}
         #(pnginfo_interface, "PNG Info", "pnginfo"),
         #(modelmerger_interface, "Checkpoint Merger", "modelmerger"),
         #(train_interface, "Train", "ti"),
-        #(settings_interface, "Settings", "settings"),
+        (settings_interface, "Settings", "settings"),
     ]
 
     with open(os.path.join(script_path, "style.css"), "r", encoding="utf8") as file:
