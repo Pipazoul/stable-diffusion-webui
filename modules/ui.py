@@ -1410,10 +1410,10 @@ Requested path was: {f}
         (txt2img_interface, "txt2img", "txt2img"),
         (img2img_interface, "img2img", "img2img"),
         (extras_interface, "Extras", "extras"),
-        (pnginfo_interface, "PNG Info", "pnginfo"),
-        (modelmerger_interface, "Checkpoint Merger", "modelmerger"),
-        (train_interface, "Train", "ti"),
-        (settings_interface, "Settings", "settings"),
+        #(pnginfo_interface, "PNG Info", "pnginfo"),
+        #(modelmerger_interface, "Checkpoint Merger", "modelmerger"),
+        #(train_interface, "Train", "ti"),
+        #(settings_interface, "Settings", "settings"),
     ]
 
     with open(os.path.join(script_path, "style.css"), "r", encoding="utf8") as file:
