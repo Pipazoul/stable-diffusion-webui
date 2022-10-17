@@ -562,15 +562,15 @@ def create_ui(wrap_gradio_gpu_call):
 
                 with gr.Group():
                     with gr.Row():
-                        save = gr.Button('Save')
-                        send_to_img2img = gr.Button('Send to img2img')
-                        send_to_inpaint = gr.Button('Send to inpaint')
-                        send_to_extras = gr.Button('Send to extras')
+                        save = gr.Button('Save', visible=False)
+                        send_to_img2img = gr.Button('Send to img2img', visible=False)
+                        send_to_inpaint = gr.Button('Send to inpaint', visible=False)
+                        send_to_extras = gr.Button('Send to extras', visible=False)
                         button_id = "hidden_element" if shared.cmd_opts.hide_ui_dir_config else 'open_folder'
-                        open_txt2img_folder = gr.Button(folder_symbol, elem_id=button_id)
+                        open_txt2img_folder = gr.Button(folder_symbol, elem_id=button_id, visible=False)
 
                     with gr.Row():
-                        do_make_zip = gr.Checkbox(label="Make Zip when Save?", value=False)
+                        do_make_zip = gr.Checkbox(label="Make Zip when Save?", value=False, visible=False)
 
                     with gr.Row():
                         download_files = gr.File(None, file_count="multiple", interactive=False, show_label=False, visible=False)
@@ -709,11 +709,11 @@ def create_ui(wrap_gradio_gpu_call):
                             inpaint_full_res = gr.Checkbox(label='Inpaint at full resolution', value=False)
                             inpaint_full_res_padding = gr.Slider(label='Inpaint at full resolution padding, pixels', minimum=0, maximum=256, step=4, value=32)
 
-                    with gr.TabItem('Batch img2img', id='batch'):
+                    '''with gr.TabItem('Batch img2img', id='batch'):
                         hidden = '<br>Disabled when launched with --hide-ui-dir-config.' if shared.cmd_opts.hide_ui_dir_config else ''
                         gr.HTML(f"<p class=\"text-gray-500\">Process images in a directory on the same machine where the server is running.<br>Use an empty output directory to save pictures normally instead of writing to the output directory.{hidden}</p>")
                         img2img_batch_input_dir = gr.Textbox(label="Input directory", **shared.hide_dirs)
-                        img2img_batch_output_dir = gr.Textbox(label="Output directory", **shared.hide_dirs)
+                        img2img_batch_output_dir = gr.Textbox(label="Output directory", **shared.hide_dirs)'''
 
                 with gr.Row():
                     resize_mode = gr.Radio(label="Resize mode", elem_id="resize_mode", show_label=False, choices=["Just resize", "Crop and resize", "Resize and fill"], type="index", value="Just resize")
@@ -750,15 +750,15 @@ def create_ui(wrap_gradio_gpu_call):
 
                 with gr.Group():
                     with gr.Row():
-                        save = gr.Button('Save')
-                        img2img_send_to_img2img = gr.Button('Send to img2img')
-                        img2img_send_to_inpaint = gr.Button('Send to inpaint')
-                        img2img_send_to_extras = gr.Button('Send to extras')
+                        save = gr.Button('Save', visible=False)
+                        img2img_send_to_img2img = gr.Button('Send to img2img', visible=False)
+                        img2img_send_to_inpaint = gr.Button('Send to inpaint', visible=False)
+                        img2img_send_to_extras = gr.Button('Send to extras', visible=False)
                         button_id = "hidden_element" if shared.cmd_opts.hide_ui_dir_config else 'open_folder'
-                        open_img2img_folder = gr.Button(folder_symbol, elem_id=button_id)
+                        open_img2img_folder = gr.Button(folder_symbol, elem_id=button_id, visible=False)
 
                     with gr.Row():
-                        do_make_zip = gr.Checkbox(label="Make Zip when Save?", value=False)
+                        do_make_zip = gr.Checkbox(label="Make Zip when Save?", value=False, visible=False)
 
                     with gr.Row():
                         download_files = gr.File(None, file_count="multiple", interactive=False, show_label=False, visible=False)
@@ -816,8 +816,8 @@ def create_ui(wrap_gradio_gpu_call):
                     inpaint_full_res,
                     inpaint_full_res_padding,
                     inpainting_mask_invert,
-                    img2img_batch_input_dir,
-                    img2img_batch_output_dir,
+                    #img2img_batch_input_dir,
+                    #img2img_batch_output_dir,
                 ] + custom_inputs,
                 outputs=[
                     img2img_gallery,
@@ -953,10 +953,10 @@ def create_ui(wrap_gradio_gpu_call):
                 result_images = gr.Gallery(label="Result", show_label=False)
                 html_info_x = gr.HTML()
                 html_info = gr.HTML()
-                extras_send_to_img2img = gr.Button('Send to img2img')
-                extras_send_to_inpaint = gr.Button('Send to inpaint')
+                extras_send_to_img2img = gr.Button('Send to img2img', visible=False)
+                extras_send_to_inpaint = gr.Button('Send to inpaint', visible=False)
                 button_id = "hidden_element" if shared.cmd_opts.hide_ui_dir_config else ''
-                open_extras_folder = gr.Button('Open output directory', elem_id=button_id)
+                open_extras_folder = gr.Button('Open output directory', elem_id=button_id, visible=False)
 
         submit.click(
             fn=wrap_gradio_gpu_call(modules.extras.run_extras),
@@ -1413,7 +1413,7 @@ Requested path was: {f}
         #(pnginfo_interface, "PNG Info", "pnginfo"),
         #(modelmerger_interface, "Checkpoint Merger", "modelmerger"),
         #(train_interface, "Train", "ti"),
-        (settings_interface, "Settings", "settings"),
+        #(settings_interface, "Settings", "settings"),
     ]
 
     with open(os.path.join(script_path, "style.css"), "r", encoding="utf8") as file:
