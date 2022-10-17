@@ -763,7 +763,7 @@ def create_ui(txt2img, img2img,webcam2img, run_extras, run_pnginfo):
 
                 with gr.Group():
                     cfg_scale = gr.Slider(visible=False, minimum=1.0, maximum=30.0, step=0.5, label='CFG Scale', value=7.0)
-                    denoising_strength = gr.Slider(minimum=0.0, maximum=1.0, step=0.01, label='Fidelité', value=0.75)
+                    denoising_strength = gr.Slider(minimum=0.0, maximum=1.0, step=0.01, label='Fidelité', value=0.45)
 
                 with gr.Group():
                     width = gr.Slider(visible=False,minimum=64, maximum=2048, step=64, label="Width", value=512)
@@ -773,11 +773,11 @@ def create_ui(txt2img, img2img,webcam2img, run_extras, run_pnginfo):
 
 
             with gr.Column(variant='panel'):
-                progressbar = gr.HTML(elem_id="progressbar")
+                progressbar = gr.HTML(elem_id="progressbar", visble=False)
 
                 with gr.Group():
                     img2img_preview = gr.Image(elem_id='img2img_preview', visible=False)
-                    img2img_gallery = gr.Gallery(label='Output', elem_id='img2img_gallery').style(grid=4)
+                    img2img_gallery = gr.Gallery(label='Output', elem_id='img2img_gallery')
 
                 setup_progressbar(progressbar, img2img_preview)
 
@@ -792,7 +792,7 @@ def create_ui(txt2img, img2img,webcam2img, run_extras, run_pnginfo):
 
 
                 with gr.Group():
-                    html_info = gr.HTML()
+                    html_info = gr.HTML(visble=False)
                     generation_info = gr.Textbox(visible=False)
 
             connect_reuse_seed(seed, reuse_seed, generation_info, dummy_component, is_subseed=False)
