@@ -1,11 +1,11 @@
 /* Plasma Punk Surcharge*/
 
 /*Hide */
-.absolute.h-\[60px\].bg-white.dark\:bg-gray-900.overflow-x-scroll.scroll-hide.w-full.bottom-0.flex.gap-1\.5.items-center.py-2.text-sm.px-3.justify-center,
-.flex.gr-gap.gr-form-gap.row.gap-4.w-full.flex-wrap,
 #component-347,
 #component-304,
-#component-308
+#component-308,
+#component-340,
+footer
 {
     display: none !important;
 }
